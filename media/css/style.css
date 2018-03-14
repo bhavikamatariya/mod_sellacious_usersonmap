@@ -1,0 +1,17 @@
+/**
+ * @version     __DEPLOY_VERSION__
+ * @package     sellacious
+ *
+ * @copyright   Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.
+ * @license     SPL Sellacious Private License; see http://www.sellacious.com/spl.html
+ * @author      Bhavika Matariya <info@bhartiy.com> - http://www.bhartiy.com
+ */
+
+#dvMap .gm-style img[src$="?s-map-icon"],
+#dvMap .gm-style img.markup-pointer {
+	border-radius: 50% 50% 0 50%;
+	border: 3px solid #00c4ff !important;
+	transform: rotate(45deg);
+	width: 40px !important;
+	height: 40px !important;
+}
