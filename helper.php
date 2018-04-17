@@ -201,27 +201,34 @@ class ModSellaciousUsersOnMap
 		$helper = SellaciousHelper::getInstance();
 		$icon   = '';
 
-		$filter    = array('list.select' => 'a.map_marker, a.google_map_icon', 'id' => $catId);
-		$catMarker = $helper->category->loadObject($filter);
+		try
+		{
+			$filter    = array('list.select' => 'a.map_marker, a.google_map_icon', 'id' => $catId);
+			$catMarker = $helper->category->loadObject($filter);
 
-		if ($catMarker->map_marker == 'sellacious_avatar')
-		{
-			$icon = $helper->media->getImages('user.avatar', (int) $userId, false);
-			$icon = reset($icon);
-		}
-		elseif ($catMarker->map_marker == 'custom_icon')
-		{
-			$icon = $helper->media->getImages('categories.custom_map_icon', (int) $catId, false);
-			$icon = reset($icon);
-		}
-		elseif ($catMarker->map_marker == 'google_icon')
-		{
-			$icon = 'http://maps.google.com/mapfiles/ms/micons/' . $catMarker->google_map_icon . '?s-map-google-icon';
-		}
+			if ($catMarker->map_marker == 'sellacious_avatar')
+			{
+				$icon = $helper->media->getImages('user.avatar', (int) $userId, false);
+				$icon = reset($icon);
+			}
+			elseif ($catMarker->map_marker == 'custom_icon')
+			{
+				$icon = $helper->media->getImages('categories.custom_map_icon', (int) $catId, false);
+				$icon = reset($icon);
+			}
+			elseif ($catMarker->map_marker == 'google_icon')
+			{
+				$icon = 'http://maps.google.com/mapfiles/ms/micons/' . $catMarker->google_map_icon . '?s-map-google-icon';
+			}
 
-		if (!empty($icon) && ($catMarker->map_marker == 'custom_icon' || $catMarker->map_marker == 'sellacious_avatar'))
+			if (!empty($icon) && ($catMarker->map_marker == 'custom_icon' || $catMarker->map_marker == 'sellacious_avatar'))
+			{
+				$icon .= '?s-map-icon';
+			}
+		}
+		catch (Exception $e)
 		{
-			$icon .= '?s-map-icon';
+			$icon = '';
 		}
 
 		return $icon;
